@@ -1,0 +1,10 @@
+.featured-item {
+  background-image: url("../assets/home/featured.jpg");
+  background-color: rgba(21, 21, 21, 0.7);
+  max-height: 848px;
+  background-blend-mode: overlay; /* Ensures the color overlays the image */
+  background-size: cover; /* Makes the image cover the entire container */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat;
+  
+}
