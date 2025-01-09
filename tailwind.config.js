@@ -17,6 +17,7 @@ export default {
         "color-11": "#111827",
         "color-cd": "rgba(205, 144, 3, 1)",
         "color-nav": "rgba(21, 21, 21, 0.5)",
+        "color-cover": "rgba(21, 21, 21, 0.6)",
       },
     },
   },

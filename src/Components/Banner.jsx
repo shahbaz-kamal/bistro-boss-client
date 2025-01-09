@@ -9,11 +9,11 @@ import img6 from "../assets/home/06.png";
 
 const Banner = () => {
   return (
-    <div className="min-h-screen">
+    <div className="">
    
-      <Carousel>
+      <Carousel className="">
         <div>
-          <img src={img1} />
+          <img  src={img1} />
         </div>
         <div>
           <img src={img2} />

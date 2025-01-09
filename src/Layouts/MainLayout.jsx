@@ -6,13 +6,13 @@ import Footer from "../Components/Shared/Footer";
 const MainLayout = () => {
   return (
     <div>
-      <section className="max-w-[1920px] mx-auto">
+      <section className="w-full mx-auto">
         <Navbar></Navbar>
       </section>
       <section>
         <Outlet></Outlet>
       </section>
-      <section className="max-w-[1920px] mx-auto">
+      <section className="w-full mx-auto">
         <Footer></Footer>
       </section>
     </div>

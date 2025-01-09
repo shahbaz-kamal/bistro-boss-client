@@ -48,20 +48,21 @@ const Navbar = () => {
       >
         <li className="">Our Menu</li>
       </NavLink>
+
       <NavLink
-        to={"/our-shop"}
+        to={"/order"}
         className={({ isActive }) =>
           isActive
             ? "font-extrabold text-lg md:text-xl text-[#EEFF25]"
             : "font-extrabold text-lg md:text-xl text-white"
         }
       >
-        <li className="">Our Shop</li>
+        <li className="">Order</li>
       </NavLink>
     </>
   );
   return (
-    <div className="navbar bg-color-nav  px-3 md:px-12 fixed z-10 py-6 ">
+    <div className="navbar bg-color-nav  px-3 md:px-12 fixed z-10 py-6 w-full">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
