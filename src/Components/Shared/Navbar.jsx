@@ -1,8 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
+import UseAuth from "../../Hooks/UseAuth";
 
 const Navbar = () => {
+  const { user, logOutUser } = UseAuth();
+  const handleLogOut = () => {
+    logOutUser().then(() => {
+      console.log("Log Out SuccessFull");
+    });
+  };
   const links = (
     <>
       {/*  isActive
@@ -59,6 +66,45 @@ const Navbar = () => {
       >
         <li className="">Order</li>
       </NavLink>
+
+      {user && user?.email ? (
+        <> <li onClick={handleLogOut} className="font-extrabold text-lg md:text-xl text-white">
+        Log Out
+      </li>
+          {/* <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? "font-extrabold text-lg md:text-xl text-[#EEFF25]"
+                : "font-extrabold text-lg md:text-xl text-white"
+            }
+          >
+           
+          </NavLink> */}
+        </>
+      ) : (
+        <>
+          <NavLink
+            to={"/login"}
+            className={({ isActive }) =>
+              isActive
+                ? "font-extrabold text-lg md:text-xl text-[#EEFF25]"
+                : "font-extrabold text-lg md:text-xl text-white"
+            }
+          >
+            <li className="">Login</li>
+          </NavLink>
+        </>
+      )}
+      <NavLink
+        to={"/register"}
+        className={({ isActive }) =>
+          isActive
+            ? "font-extrabold text-lg md:text-xl text-[#EEFF25]"
+            : "font-extrabold text-lg md:text-xl text-white"
+        }
+      >
+        <li className="">Register</li>
+      </NavLink>
     </>
   );
   return (
@@ -101,7 +147,7 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1 gap-2">{links}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <a className="btn">bbutton</a>
       </div>
     </div>
   );

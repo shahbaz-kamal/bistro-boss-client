@@ -7,12 +7,17 @@ import useMenu from "../../Hooks/useMenu";
 import FoodCard from "../../Components/Shared/FoodCard";
 import OrderTab from "./OrderTab";
 import { useParams } from "react-router-dom";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Order = () => {
-  const [tabIndex, setTabIndex] = useState(0);
+  const categories = ["salad", "pizza", "soup", "dessert", "drinks"];
+  const { category } = useParams();
+  const initialIndex = category ? categories.indexOf(category) : 0;
+  // const initialIndex = categories.indexOf(category);
+  const [tabIndex, setTabIndex] = useState(initialIndex);
   const [menu] = useMenu();
-  // const {category}=useParams()
-  // console.log(category)
+  console.log(menu);
+  console.log(category);
   const todaysOffer = menu.filter((item) => item.category === "offered");
   const dessert = menu.filter((item) => item.category === "dessert");
   const pizza = menu.filter((item) => item.category === "pizza");
