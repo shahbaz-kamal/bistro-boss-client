@@ -9,7 +9,14 @@ import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 
 const Register = () => {
-  const { googleSignInUser, setLoading, setUser, user, createUser } = UseAuth();
+  const {
+    googleSignInUser,
+    setLoading,
+    setUser,
+    user,
+    createUser,
+    updateUser,
+  } = UseAuth();
   const {
     register,
     handleSubmit,
@@ -20,6 +27,16 @@ const Register = () => {
     console.log(data);
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
+
+      updateUser(data.name, data.photoURL)
+        .then(() => {
+          Swal.fire({
+            title: "Good job!",
+            text: "You clicked the button!",
+            icon: "success",
+          });
+        })
+        .catch((error) => console.log("ERROR", error.message));
       console.log(loggedUser);
     });
   };
@@ -74,6 +91,20 @@ const Register = () => {
                 />
                 {errors.name && (
                   <span className="text-red-400">Name is required</span>
+                )}
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Photo URL</span>
+                </label>
+                <input
+                  {...register("photoURL", { required: true })}
+                  type="url"
+                  placeholder="photoURL"
+                  className="input input-bordered"
+                />
+                {errors.photoURL && (
+                  <span className="text-red-400">PhotoURL is required</span>
                 )}
               </div>
               <div className="form-control">
