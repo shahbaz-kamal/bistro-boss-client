@@ -7,6 +7,7 @@ import UseAuth from "../../Hooks/UseAuth";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
+import UseAxiosPublic from "../../Hooks/UseAxiosPublic";
 
 const Register = () => {
   const {
@@ -21,8 +22,9 @@ const Register = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors },reset
   } = useForm();
+  const axiosPublic = UseAxiosPublic();
   const onSubmit = (data) => {
     console.log(data);
     createUser(data.email, data.password).then((result) => {
@@ -30,10 +32,20 @@ const Register = () => {
 
       updateUser(data.name, data.photoURL)
         .then(() => {
-          Swal.fire({
-            title: "Good job!",
-            text: "You clicked the button!",
-            icon: "success",
+          const newUser = {
+            name: data?.name,
+            photo: data?.photoURL,
+            email: data?.email,
+          };
+          axiosPublic.post("users", newUser).then((res) => {
+            if (res.data.insertedId) {
+              reset() 
+              Swal.fire({
+                title: "Good job!",
+                text: "Your profile has been created",
+                icon: "success",
+              });
+            }
           });
         })
         .catch((error) => console.log("ERROR", error.message));

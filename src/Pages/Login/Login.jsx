@@ -12,6 +12,7 @@ import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import UseAuth from "../../Hooks/UseAuth";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { signInUser, setLoading } = UseAuth();
@@ -19,7 +20,7 @@ const Login = () => {
   const [disabled, setDisabled] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
-
+  // console.log(location.state?.from?.pathname);
   const from = location.state?.from?.pathname || "/";
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -38,7 +39,7 @@ const Login = () => {
         icon: "success",
         draggable: true,
       });
-      navigate(from,{replace:true})
+      navigate(from, { replace: true });
     });
   };
   const handleValidate = (e) => {

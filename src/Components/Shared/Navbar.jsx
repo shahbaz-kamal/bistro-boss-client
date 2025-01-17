@@ -1,10 +1,14 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 import UseAuth from "../../Hooks/UseAuth";
+import { FaShoppingCart } from "react-icons/fa";
+import UseCart from "../../Hooks/UseCart";
 
 const Navbar = () => {
   const { user, logOutUser } = UseAuth();
+  const [cart] = UseCart();
+  console.log(cart);
   const handleLogOut = () => {
     logOutUser().then(() => {
       console.log("Log Out SuccessFull");
@@ -66,11 +70,33 @@ const Navbar = () => {
       >
         <li className="">Order</li>
       </NavLink>
+      <NavLink
+        to={"/"}
+        className={({ isActive }) =>
+          isActive
+            ? "font-extrabold text-lg md:text-xl text-[#EEFF25]"
+            : "font-extrabold text-lg md:text-xl text-white"
+        }
+      >
+        <Link to={"/dashboard/my-cart"}>
+          <li className="flex items-center">
+            <button className="">
+              <FaShoppingCart></FaShoppingCart>{" "}
+              <div className="badge badge-secondary">+{cart.length}</div>
+            </button>
+          </li>
+        </Link>
+      </NavLink>
 
       {user && user?.email ? (
-        <> <li onClick={handleLogOut} className="font-extrabold text-lg md:text-xl text-white">
-        Log Out
-      </li>
+        <>
+          {" "}
+          <li
+            onClick={handleLogOut}
+            className="font-extrabold text-lg md:text-xl text-white"
+          >
+            Log Out
+          </li>
           {/* <NavLink
             className={({ isActive }) =>
               isActive
