@@ -1,6 +1,8 @@
 import React from "react";
 import { BsFillCalendar2DayFill } from "react-icons/bs";
 import { CiMenuBurger, CiShop } from "react-icons/ci";
+import { GiKnifeFork } from "react-icons/gi";
+import { RiMenuFold2Fill } from "react-icons/ri";
 import {
   FaCalendar,
   FaCartArrowDown,
@@ -9,11 +11,73 @@ import {
   FaMailBulk,
   FaWallet,
 } from "react-icons/fa";
-import { MdOutlineReviews } from "react-icons/md";
+import { HiUserGroup } from "react-icons/hi2";
+import { MdLibraryBooks, MdOutlineReviews } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
+import UseAdmin from "../Hooks/UseAdmin";
 
 const DashboardLayout = () => {
-  const userLinks = (
+  // *TODO : get isAdmin value from database
+
+  const [isAdmin]   = UseAdmin();
+  console.log(isAdmin)
+  const userLinks = isAdmin ? (
+    <>
+      <NavLink
+        to={"/dashboard/admin-home"}
+        className={({ isActive }) =>
+          isActive ? "font-bold  text-white " : "font-medium  text-color-dark1"
+        }
+      >
+        <li className="font-cinzel text-sm md:text-base flex gap-3 items-center">
+          <FaHome></FaHome> Admin Home
+        </li>
+      </NavLink>
+      <NavLink
+        to={"/dashboard/add-items"}
+        className={({ isActive }) =>
+          isActive ? "font-bold  text-white " : "font-medium  text-color-dark1"
+        }
+      >
+        <li className="font-cinzel text-sm md:text-base flex gap-3 items-center">
+          <GiKnifeFork />
+          Add Items
+        </li>
+      </NavLink>
+      <NavLink
+        to={"/dashboard/manage-items"}
+        className={({ isActive }) =>
+          isActive ? "font-bold  text-white " : "font-medium  text-color-dark1"
+        }
+      >
+        <li className="font-cinzel text-sm md:text-base flex gap-3 items-center">
+          <RiMenuFold2Fill /> Manage Items
+        </li>
+      </NavLink>
+      <NavLink
+        to={"/dashboard/manage-bookings"}
+        className={({ isActive }) =>
+          isActive ? "font-bold  text-white " : "font-medium  text-color-dark1"
+        }
+      >
+        <li className="font-cinzel text-sm md:text-base flex gap-3 items-center">
+          <MdLibraryBooks />
+          Manage Bookings
+        </li>
+      </NavLink>
+      <NavLink
+        to={"/dashboard/all-users"}
+        className={({ isActive }) =>
+          isActive ? "font-bold  text-white " : "font-medium  text-color-dark1"
+        }
+      >
+        <li className="font-cinzel text-sm md:text-base flex gap-3 items-center">
+          <HiUserGroup />
+          All Users
+        </li>
+      </NavLink>
+    </>
+  ) : (
     <>
       <NavLink
         to={"/dashboard/user-home"}
@@ -145,7 +209,7 @@ const DashboardLayout = () => {
           </div>
         </div>
         {/* content */}
-        <div className="flex-1 ">
+        <div className="flex-1 bg-gray-100">
           <Outlet></Outlet>
         </div>
       </div>

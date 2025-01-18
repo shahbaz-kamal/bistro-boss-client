@@ -2,7 +2,7 @@ import React from "react";
 import { FaFacebookF, FaGithub, FaGoogle } from "react-icons/fa";
 import loginImg from "../../assets/others/authentication2.png";
 import "../Login/Login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import UseAuth from "../../Hooks/UseAuth";
 import Swal from "sweetalert2";
 import { useForm } from "react-hook-form";
@@ -22,9 +22,11 @@ const Register = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors },reset
+    formState: { errors },
+    reset,
   } = useForm();
   const axiosPublic = UseAxiosPublic();
+  const navigate = useNavigate();
   const onSubmit = (data) => {
     console.log(data);
     createUser(data.email, data.password).then((result) => {
@@ -39,7 +41,7 @@ const Register = () => {
           };
           axiosPublic.post("users", newUser).then((res) => {
             if (res.data.insertedId) {
-              reset() 
+              reset();
               Swal.fire({
                 title: "Good job!",
                 text: "Your profile has been created",
@@ -60,6 +62,17 @@ const Register = () => {
   const handleGoogleSignIn = () => {
     googleSignInUser()
       .then((result) => {
+        console.log(result.user);
+        const newUser = {
+          name: result.user?.displayName,
+          photo: result.user?.photoURL,
+          email: result.user?.email,
+        };
+        axiosPublic.post("/users", newUser).then((res) => {
+          console.log(res.data);
+          navigate("/");
+        });
+
         setLoading(false);
         Swal.fire({
           title: "Google sign in successfull",
